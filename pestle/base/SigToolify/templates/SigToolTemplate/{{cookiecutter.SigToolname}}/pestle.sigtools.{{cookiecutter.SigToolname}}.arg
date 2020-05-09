@@ -1,0 +1,19 @@
+-
+   # Preamble
+   ispreamble: true
+   name: {{ cookiecutter.toolname }}
+   summary:  {{ cookiecutter.description }}
+   include: [sigClassOptions.arg]
+   # Note quotes to allow special chars
+   description: "
+
+    Examples:
+
+    % Generate build for a list of brews
+
+    {{cookiecutter.toolname }}('--brew_path', '/path/to/brew/folders', '--brew_list', '/list/of/brews.grp');
+
+    "
+-
+  name: --ds
+  help: Input dataset
