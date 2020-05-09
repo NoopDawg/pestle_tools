@@ -9,9 +9,9 @@
 
     Examples:
 
-    % Generate build for a list of brews
+    # Run Algorithm on input dataset
 
-    {{cookiecutter.toolname }}('--brew_path', '/path/to/brew/folders', '--brew_list', '/list/of/brews.grp');
+    {{cookiecutter.toolname }}('--ds', 'input.gctx');
 
     "
 -

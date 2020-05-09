@@ -1,4 +1,8 @@
 
 def _runAnalysis(self):
-    # Place sanity checks for arguments here
+    # Place bulk of analysis here
+
+
+    # res = dict()
+    # return res
     raise NotImplementedError()

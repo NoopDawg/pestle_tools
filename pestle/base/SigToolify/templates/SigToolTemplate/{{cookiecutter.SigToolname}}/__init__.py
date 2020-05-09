@@ -8,7 +8,7 @@ class {{cookiecutter.SigToolname}}(SigTool):
     from ._runAnalysis import _runAnalysis
     from ._saveResults import _saveResults
 
-    def __init__(self, sigName, configFile, **kwargs):
-        sigName = __name__
+    def __init__(self, **kwargs):
+        sigName = '{{cookiecutter.SigToolname}}'
         configFile = os.path.join(pestlepath(), 'resources', sigName + '.arg')
         super().__init__(sigName, configFile, **kwargs)
