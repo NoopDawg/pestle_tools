@@ -1,7 +1,7 @@
 import yaml, argparse
 import os
 
-from utils.pestlepath import pestlepath
+from pestle.utils import pestlepath
 
 def get_input_type(type_str):
     if type_str == 'int':

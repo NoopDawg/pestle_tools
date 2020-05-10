@@ -1,5 +1,5 @@
 import sys
-from cli import main
+from pestle.cli import main
 
 if __name__ == '__main__':
     args = sys.argv

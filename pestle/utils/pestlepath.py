@@ -1,4 +1,4 @@
-import pestle
+from pestle import pestle
 import inspect
 
 def pestlepath():

@@ -1,10 +1,9 @@
 import os
 from datetime import datetime
 
-from pestle.base.SigClass import SigClass
-from pestle.common.ArgParse.ArgParse import ArgParse
-from utils.io import write_args
-
+from pestle.pestle.base import SigClass
+from pestle.pestle.common.ArgParse import ArgParse
+from pestle.utils.io import write_args
 
 class SigTool(SigClass):
     def __init__(self, sigName, configFile, *argv):
