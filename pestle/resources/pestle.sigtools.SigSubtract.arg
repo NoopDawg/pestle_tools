@@ -15,10 +15,17 @@
 
     # Run Algorithm on input dataset
 
-    sig_subtract_tool('--ds', 'input.gctx');
+    sig_subtract_tool --minuend 100 --subtrahend 50;
 
     "
 -
-  name: --ds
-  default: ''
-  help: Input dataset
+  name: --minuend
+  default: 100
+  type: 'float'
+  help: Number to be subtracted from
+
+-
+  name: --subtrahend
+  default: 50
+  type: 'float'
+  help: Number to subtract from minuend

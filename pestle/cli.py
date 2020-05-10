@@ -16,7 +16,10 @@ def run_tool(toolname, *argv):
     tool(*argv)
 
 def pestle_help():
-    print("Pestle: Sigtool generator and runner )
+    print("Pestle: Sigtool generator and runner\n")
+    print("Avaliable commands:")
+    print("\truntool\t\t Run tool from tool catalog. Running without args shows usage")
+    print("\ttoolify\t\t Tool to manage creation of tools")
 
 def print_tools():
     registry_file = get_tool_registry()
@@ -34,17 +37,17 @@ def toolify_help():
 
 
 def main(argv=None):
-    if len(sys.argv) < 2:
-        print( "missing command" )
+    if len(argv) < 2:
+        pestle_help()
         sys.exit(0)
 
-    if sys.argv[1] == 'runtool':
-        if len(sys.argv) < 3:
+    if argv[1] == 'runtool':
+        if len(argv) < 3:
             print("\nUsage: pestle runtool [toolname] [-h] [options]\n")
             print_tools()
         else:
             try:
-                run_tool(sys.argv[2], sys.argv[3:])
+                run_tool(argv[2], argv[3:])
             except ModuleNotFoundError as exc:
                 traceback.print_exc()
                 print(exc)
@@ -52,18 +55,18 @@ def main(argv=None):
                 print_tools()
                 exit(1)
 
-    elif sys.argv[1] == 'toolify':
-        if len(sys.argv) < 3:
+    elif argv[1] == 'toolify':
+        if len(argv) < 3:
             toolify_help()
             sys.exit(0)
 
         toolify = SigToolify()
-        if sys.argv[2] == 'new':
+        if argv[2] == 'new':
             toolify.new()
-        if sys.argv[2] == 'help':
+        if argv[2] == 'help':
             toolify_help()
         else:
             toolify_help()
             print("Unknown toolify command: {}")
     else:
-        print("Unknown command: {}".format(sys.argv[1]))
+        print("Unknown command: {}".format(argv[1]))
