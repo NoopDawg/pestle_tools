@@ -58,11 +58,11 @@ class SigClass:
 
     def saveResults(self, *argv):
         wkdir = self.wkdir
-        if ~os.path.exists(wkdir):
+        if not os.path.exists(wkdir):
             os.mkdir(wkdir)
             print("Creating working dir: {}".format(wkdir))
         else:
-            print("Working directory exists: ".format(wkdir))
+            #print("Working directory {} exists  ".format(wkdir))
             #print config
             self._saveResults(out_path=wkdir)
 
@@ -74,6 +74,9 @@ class SigClass:
 
     def getArgs(self):
         return self._args
+
+    def getResults(self):
+        return self._res
 
     def setArg(self, key, value):
         if key in self._args:
@@ -132,7 +135,7 @@ class SigClass:
 # Protected methods
     def _classMain(self):
         if (self.mode == "default"):
-            self._runAnalysis()
+            self._res = self._runAnalysis()
         elif (self.mode == "test"):
             self._runTests()
         elif (self.mode == "demo"):
@@ -157,7 +160,7 @@ class SigClass:
         else:
             self.mode = 'default'
 
-        self._args = vars(args)
+        self._args = args
 
         self._checkArgs() #Validate arguments
 
@@ -176,7 +179,7 @@ class SigClass:
 
         args.out = wkdir
         self.wkdir = wkdir
-        self._args = vars(args)
+        self._args = args
         write_args(args, wkdir, to_console=False)
         return args
 
