@@ -1,6 +1,6 @@
 import time
 from datetime import datetime
-import os
+import os, sys
 import traceback
 import unittest
 
@@ -13,6 +13,7 @@ class SigClass:
 # Public Methods
     def __init__(self, sigName, configFile,*argv):
         self._sigName = sigName
+        self._toolname = "sig_{}_tool".format(sigName.replace('Sig', '').lower())
         self._configFile = configFile
         # Should be dict
         self._args = {}
@@ -22,15 +23,16 @@ class SigClass:
         self._mode = None
         self._t0 = None
         self._tend = None
-        self._testSuite = '.'.join(['pestle', 'tests', 'test{}.py'.format(sigName)])
-        self.parseArgs(*argv)
+        self._testSuite = '.'.join(['pestle', 'tests', 'test{}'.format(sigName)])
+        #self.parseArgs(*argv)
+
 
     def parseArgs(self, *argv):
         self._parseArgs(*argv)
 
     def run(self, *argv):
         try:
-            #self.parseArgs(*argv) run in init
+            self.parseArgs(*argv)
             self.runAnalysis()
             if (self._state == 'SUCCESS') & (self.mode == 'default'):
                 self.saveResults()
@@ -104,6 +106,10 @@ class SigClass:
     def mode(self):
         return self._mode
 
+    @mode.setter
+    def mode(self, value):
+        self._mode = value
+
     @property
     def wkdir(self):
         return self._wkdir
@@ -127,12 +133,29 @@ class SigClass:
     def _classMain(self):
         if (self.mode == "default"):
             self._runAnalysis()
+        elif (self.mode == "test"):
+            self._runTests()
+        elif (self.mode == "demo"):
+            self._runDemo()
+        else:
+            assert (False), "Unknown run mode"
 
     def _parseArgs(self, *argv):
         arg_parse = ArgParse()
         arg_parse.addFile(self.configFile)
 
+        arg_parse.parser.prog = self._toolname
+        if len(*argv) < 1:
+            arg_parse.parser.print_help()
+            sys.exit(0)
         args = arg_parse.parser.parse_args(*argv) #parse arguments
+
+        if args.rundemo:
+            self.mode = 'demo'
+        elif args.runtests:
+            self.mode = 'test'
+        else:
+            self.mode = 'default'
 
         self._args = vars(args)
 
@@ -154,15 +177,16 @@ class SigClass:
         args.out = wkdir
         self.wkdir = wkdir
         self._args = vars(args)
-        write_args(args, wkdir)
+        write_args(args, wkdir, to_console=False)
         return args
 
     def _runDemo(self):
-        raise NotImplementedError
+        raise NotImplementedError("Demos not yet implemented")
 
     def _runTests(self):
         print("Running Teests")
         suite =  unittest.TestLoader().loadTestsFromName(self._testSuite)
+        unittest.TextTestRunner(verbosity=2).run(suite)
 
     #Protected, Abstract methods
     def _runAnalysis(self):
