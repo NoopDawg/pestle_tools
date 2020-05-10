@@ -1,13 +1,18 @@
 import time
+from datetime import datetime
 import os
 import traceback
+
+from pestle.common.ArgParse.ArgParse import ArgParse
+from utils.io import write_args
 
 class SigClass:
 
 # Public Methods
-    def __init__(self, sigName, configFile,**kwargs):
+    def __init__(self, sigName, configFile,*argv):
         self._sigName = sigName
         self._configFile = configFile
+        # Should be dict
         self._args = {}
         self._res = None
         self._wkdir = None
@@ -15,14 +20,14 @@ class SigClass:
         self._mode = None
         self._t0 = None
         self._tend = None
-        self.parseArgs(**kwargs)
+        self.parseArgs(*argv)
 
-    def parseArgs(self, **kwargs):
-        self._parseArgs(**kwargs)
+    def parseArgs(self, *argv):
+        self._parseArgs(*argv)
 
-    def run(self, **kwargs):
+    def run(self, *argv):
         try:
-            self.parseArgs(**kwargs)
+            self.parseArgs(*argv)
             self.runAnalysis()
             if (self._state == 'SUCCESS') & (self.mode == 'default'):
                 self.saveResults()
@@ -40,10 +45,21 @@ class SigClass:
     def runAnalysis(self):
         self._state = "RUNNING"
         self.tic()
-        self._classMain()
+        self._classMain()       #runs analysis, demo or test
+        tend = self.toc()
+        print( "# Completed in {:2.2f}s".format(tend))
+        self.state = "SUCCESS"
 
-    def saveResults(self, **kwargs):
-        raise NotImplementedError
+
+    def saveResults(self, *argv):
+        wkdir = self.wkdir
+        if ~os.path.exists(wkdir):
+            os.mkdir(wkdir)
+            print("Creating working dir: {}".format(wkdir))
+        else:
+            print("Working directory exists: ".format(wkdir))
+            #print config
+            self._saveResults(out_path=wkdir)
 
     def runTests(self):
         self._runTests()
@@ -77,6 +93,10 @@ class SigClass:
     def state(self):
         return self._state
 
+    @state.setter
+    def state(self, value):
+        self._state = value
+
     @property
     def mode(self):
         return self._mode
@@ -84,6 +104,10 @@ class SigClass:
     @property
     def wkdir(self):
         return self._wkdir
+
+    @wkdir.setter
+    def wkdir(self, value):
+        self._wkdir = value
 
     def tic(self): #based off Matlab tic-toc functionality
         self._t0 = time.time()
@@ -101,8 +125,34 @@ class SigClass:
         if (self.mode == "default"):
             self._runAnalysis()
 
-    def _parseArgs(self, **kwargs):
-        raise NotImplementedError
+    def _parseArgs(self, *argv):
+        arg_parse = ArgParse()
+        arg_parse.addFile(self.configFile)
+
+        args = arg_parse.parser.parse_args(*argv) #parse arguments
+
+        self._args = vars(args)
+
+        self._checkArgs() #Validate arguments
+
+        if not args.out:
+            args.out = os.curdir
+        if args.create_subdir:
+            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            wkdir = os.path.join(args.out, "{}_{}".format(self.sigName, timestamp))
+        else:
+            wkdir = args.out
+        if os.path.exists(wkdir):
+            print("Working directory exists: {}".format(wkdir))
+        else:
+            print("Creating working dir: {}".format(wkdir))
+            os.mkdir(wkdir)
+
+        args.out = wkdir
+        self.wkdir = wkdir
+        self._args = vars(args)
+        write_args(args, wkdir)
+        return args
 
     def _runDemo(self):
         raise NotImplementedError
