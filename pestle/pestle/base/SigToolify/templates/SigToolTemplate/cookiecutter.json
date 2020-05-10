@@ -1,0 +1,7 @@
+{
+    "SigToolname": "Starts with Sig, e.g. SigAdd",
+    "description": "A description of what the tool does",
+    "toolname": "sig_{{ cookiecutter.SigToolname|lower|replace('sig','')|replace(' ', '') }}_tool",
+    "author": "e.g. John Doe",
+    "release_date": "{{ cookiecutter.release_date }}"
+}

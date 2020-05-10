@@ -1,0 +1,24 @@
+-
+   # Preamble
+   ispreamble: true
+   name: {{ cookiecutter.toolname }}
+   summary:  {{ cookiecutter.description }}
+   include: [sigClassOptions.arg]
+   # Note quotes to allow special chars
+   description: "
+    {{cookiecutter.SigToolname}} : {{ cookiecutter.description }}
+
+    Author: {{ cookiecutter.author }}
+    Date Created: {{ cookiecutter.release_date }}
+
+    Examples:
+
+    # Run Algorithm on input dataset
+
+    {{cookiecutter.toolname }}('--ds', 'input.gctx');
+
+    "
+-
+  name: --ds
+  default: ''
+  help: Input dataset

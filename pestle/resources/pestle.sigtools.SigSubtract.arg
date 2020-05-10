@@ -1,0 +1,24 @@
+-
+   # Preamble
+   ispreamble: true
+   name: sig_subtract_tool
+   summary:  Subtracts some values
+   include: [sigClassOptions.arg]
+   # Note quotes to allow special chars
+   description: "
+    SigSubtract : Subtracts some values
+
+    Author: e.g. John Doe
+    Date Created: 2020-05-09
+
+    Examples:
+
+    # Run Algorithm on input dataset
+
+    sig_subtract_tool('--ds', 'input.gctx');
+
+    "
+-
+  name: --ds
+  default: ''
+  help: Input dataset
