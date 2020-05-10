@@ -27,7 +27,7 @@ class SigClass:
 
     def run(self, *argv):
         try:
-            self.parseArgs(*argv)
+            #self.parseArgs(*argv) run in init
             self.runAnalysis()
             if (self._state == 'SUCCESS') & (self.mode == 'default'):
                 self.saveResults()
