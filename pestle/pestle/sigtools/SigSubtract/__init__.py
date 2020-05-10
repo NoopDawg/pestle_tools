@@ -1,7 +1,7 @@
 import os
 
 from pestle.pestle.base.SigTool import SigTool
-from pestle.utils.pestlepath import pestlepath
+from pestle.utils import pestlepath
 
 class SigSubtract(SigTool):
     from ._checkArgs import _checkArgs

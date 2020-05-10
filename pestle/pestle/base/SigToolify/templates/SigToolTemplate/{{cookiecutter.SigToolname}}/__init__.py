@@ -1,6 +1,6 @@
 import os
 
-from pestle.utils.pestlepath import pestlepath
+from pestle.utils import pestlepath
 
 class {{cookiecutter.SigToolname}}(SigTool):
 

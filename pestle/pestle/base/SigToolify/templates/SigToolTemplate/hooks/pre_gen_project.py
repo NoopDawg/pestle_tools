@@ -1,6 +1,6 @@
 import re, sys, os
 
-from pestle.utils.pestlepath import pestlepath
+from pestle.utils import pestlepath
 
 MODULE_REGEX = r'^Sig[a-zA-Z0-9]+$'
 
