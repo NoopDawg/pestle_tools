@@ -10,3 +10,4 @@ def write_args(args, out_path, to_file=True, filename='config.txt'):
     else:
         for option in options:
             print("{}: {}".format(option, options[option]))
+

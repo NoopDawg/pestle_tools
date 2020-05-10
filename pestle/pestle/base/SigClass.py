@@ -3,8 +3,8 @@ from datetime import datetime
 import os
 import traceback
 
-from pestle.common.ArgParse.ArgParse import ArgParse
-from utils.io import write_args
+from pestle.pestle.common.ArgParse import ArgParse
+from pestle.utils.io import write_args
 
 class SigClass:
 

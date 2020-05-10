@@ -1,12 +1,8 @@
 import os
 
-from pestle.base.SigTool import SigTool
-from utils.pestlepath import pestlepath
+from pestle.utils import pestlepath
 
 class {{cookiecutter.SigToolname}}(SigTool):
-    from ._checkArgs import _checkArgs
-    from ._runAnalysis import _runAnalysis
-    from ._saveResults import _saveResults
 
     def __init__(self, *argv):
         sigName = '{{cookiecutter.SigToolname}}'

@@ -1,7 +1,7 @@
 from cookiecutter.main import cookiecutter
 import os
 import datetime
-from utils.pestlepath import pestlepath
+from pestle.utils import pestlepath
 
 class SigToolify():
     def __init__(self):
@@ -22,5 +22,4 @@ class SigToolify():
         cookiecutter(template_path,
                      output_dir=os.path.join(pestle_path, 'pestle', 'sigtools'),
                      extra_context=extra_context)
-
 
