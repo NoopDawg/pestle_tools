@@ -2,9 +2,11 @@ import time
 from datetime import datetime
 import os
 import traceback
+import unittest
 
 from pestle.pestle.common.ArgParse import ArgParse
 from pestle.utils.io import write_args
+from pestle.utils import pestlepath
 
 class SigClass:
 
@@ -20,6 +22,7 @@ class SigClass:
         self._mode = None
         self._t0 = None
         self._tend = None
+        self._testSuite = '.'.join(['pestle', 'tests', 'test{}.py'.format(sigName)])
         self.parseArgs(*argv)
 
     def parseArgs(self, *argv):
@@ -158,7 +161,8 @@ class SigClass:
         raise NotImplementedError
 
     def _runTests(self):
-        raise NotImplementedError
+        print("Running Teests")
+        suite =  unittest.TestLoader().loadTestsFromName(self._testSuite)
 
     #Protected, Abstract methods
     def _runAnalysis(self):
