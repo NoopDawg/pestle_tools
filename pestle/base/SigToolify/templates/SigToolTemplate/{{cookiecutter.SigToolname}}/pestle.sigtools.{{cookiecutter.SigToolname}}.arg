@@ -16,4 +16,5 @@
     "
 -
   name: --ds
+  default: ''
   help: Input dataset

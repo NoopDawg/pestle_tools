@@ -1,5 +1,5 @@
-import pestle.sigtools.{{cookiecutter.SigToolname}} as {{cookiecutter.SigToolname}}
+from pestle.sigtools.{{cookiecutter.SigToolname}} import {{cookiecutter.SigToolname}}
 
-def {{cookiecutter.toolname}}(**kwargs):
-    obj = {{cookiecutter.SigToolname}}(**kwargs)
-    obj.run(**kwargs)
+def {{cookiecutter.toolname}}(*argv):
+    obj = {{cookiecutter.SigToolname}}(*argv)
+    obj.run(*argv)

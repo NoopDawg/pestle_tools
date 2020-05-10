@@ -1,6 +1,6 @@
 import os
 
-import pestle.base.SigTool as SigTool
+from pestle.base.SigTool import SigTool
 from utils.pestlepath import pestlepath
 
 class {{cookiecutter.SigToolname}}(SigTool):
@@ -10,5 +10,5 @@ class {{cookiecutter.SigToolname}}(SigTool):
 
     def __init__(self, **kwargs):
         sigName = '{{cookiecutter.SigToolname}}'
-        configFile = os.path.join(pestlepath(), 'resources', sigName + '.arg')
-        super().__init__(sigName, configFile, **kwargs)
+        configFile = os.path.join(pestlepath(), 'resources', '.'.join(['pestle', 'sigtools', sigName, 'arg']))
+        super().__init__(sigName, configFile, *argv)
