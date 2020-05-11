@@ -35,7 +35,8 @@
 
   run `python setup.py install`
   
-  However, while running tools in this mode is easier, creating tools places them within the venv folder.
+  However, while running tools in this mode is easier, creating tools places boilerplate within the venv folder, 
+  which can be unsightly and difficult to commit changes.
 
   **Note**: in this mode, `pestle` can be run from the command line from anywhere and replaces `run_pestle` in 
   the following examples
@@ -49,18 +50,18 @@
 
 A **VERY** simple tool has been generated as an example of how the tools can be run. 
 
-`run_pestle runtool sig_subtract_tool -h` prints tool info
+`./run_pestle runtool sig_subtract_tool -h` prints tool info
 
-`run_pestle runtool sig_subtract_tool --minued 100 --subtrahend 50` will show a basic example of the tool running
+`./run_pestle runtool sig_subtract_tool --minuend 100 --subtrahend 50` will show a basic example of the tool running
 
 ## toolify
 
-`run_pestle toolify` is the interface for creating new tools and finding tools to edit.
+`./run_pestle toolify` is the interface for creating new tools and finding tools to edit.
 
-Running `run_pestle toolify list_files` will show a list of tools and will display the filepaths of the one selected to edit
+Running `./run_pestle toolify list_files` will show a list of tools and will display the filepaths of the one selected to edit
 or examine.
 
-`run_pestle toolify new` will run through a cookiecutter setup for making a new tool. This involves cookiecutter, 
+`./run_pestle toolify new` will run through a cookiecutter setup for making a new tool. This involves cookiecutter, 
 post-gen and pre-gen hooks. **Do not adjust the pestlepath argument** this was a workaround how the 
 hooks are unable to import from the package
 
