@@ -1,7 +1,7 @@
 import sys
 import traceback
 from pestle.pestle.base.SigToolify import SigToolify
-from pestle.utils import get_tool_registry
+from pestle.utils import get_tool_list
 
 def import_from(module, name):
     module = __import__(module, fromlist=[name])
@@ -22,19 +22,14 @@ def pestle_help():
     print("\ttoolify\t\t Tool to manage creation of tools")
 
 def print_tools():
-    registry_file = get_tool_registry()
-    with open(registry_file, 'r') as f:
-        toollist = f.read().splitlines()
-        print("Available tools:")
-        for toolname in toollist:
-            print("\t {}".format(toolname))
-        print('')
+    toollist = get_tool_list()
+    for toolname in toollist:
+        print("\t {}".format(toolname))
+    print('')
 
 def toolify_help():
     print("Toolify available commands:")
     print("new\t Make new SigTool using cookiecutter template\n")
-
-
 
 def main(argv=None):
     if len(argv) < 2:
@@ -63,7 +58,9 @@ def main(argv=None):
         toolify = SigToolify()
         if argv[2] == 'new':
             toolify.new()
-        if argv[2] == 'help':
+        elif argv[2] == 'list_files':
+            toolify.tool_files()
+        elif argv[2] == 'help':
             toolify_help()
         else:
             toolify_help()
