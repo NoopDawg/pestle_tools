@@ -1,2 +1,3 @@
 sigName	toolname	tool_location	module_path	args_file	test_file
-SigSubtract	sig_subtract_tool	PESTLE_PATH/pestle/tools/sig_subtract_tool.py	PESTLE_PATH/pestle_tools/pestle/pestle/sigtools/SigSubtract/	PESTLE_PATH/pestle/resources/pestle.sigtools.SigSubtract.arg	PESTLE_PATH/pestle/tests/testSigSubtract.py
+SigSlice	sig_slice_tool	PESTLE_PATH/tools/sig_slice_tool.py	PESTLE_PATH/pestle/sigtools/SigSlice/	PESTLE_PATH/resources/pestle.sigtools.SigSlice.arg	PESTLE_PATH/tests/testSigSlice.py
+SigSubtract	sig_subtract_tool	PESTLE_PATH/tools/sig_subtract_tool.py	PESTLE_PATH/pestle/sigtools/SigSubtract/	PESTLE_PATH/resources/pestle.sigtools.SigSubtract.arg	PESTLE_PATH/tests/testSigSubtract.py
