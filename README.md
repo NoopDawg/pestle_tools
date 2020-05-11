@@ -13,7 +13,8 @@
 
   Pestle can be used in two modes, either installed into the virtual environment, or run from the repository.
   Because the repo becomes dynamic with the addition of new tools to be editted and potentially committed to the repo, 
-  the latter option is heavily recommended. 
+  the latter option is recommended for developing tools. When running tools, using the setup.py install is better as it 
+  allows access from outside of the pestle_tools directory. 
   
   **Setup**  
   within the pestle_tools directory is a script `run_pestle` that is a shortcut from the traditional 
