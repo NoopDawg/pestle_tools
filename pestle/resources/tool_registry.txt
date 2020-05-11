@@ -1,1 +1,2 @@
-sig_subtract_tool
+sigName	toolname	tool_location	module_path	args_file	test_file
+SigSubtract	sig_subtract_tool	/Users/anup/Documents/class/AdvPy/work/pestle_tools/pestle/tools/sig_subtract_tool.py	/Users/anup/Documents/class/AdvPy/work/pestle_tools/pestle/pestle/sigtools/SigSubtract/	/Users/anup/Documents/class/AdvPy/work/pestle_tools/pestle/resources/pestle.sigtools.SigSubtract.arg	/Users/anup/Documents/class/AdvPy/work/pestle_tools/pestle/tests/testSigSubtract.py
