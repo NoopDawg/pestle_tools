@@ -1,4 +1,3 @@
-
 def _runAnalysis(self):
     # Place bulk of analysis here
     args = self.getArgs()

@@ -8,12 +8,13 @@ from pestle.pestle.common.ArgParse import ArgParse
 from pestle.utils.io import write_args
 from pestle.utils import pestlepath
 
+
 class SigClass:
 
-# Public Methods
-    def __init__(self, sigName, configFile,*argv):
+    # Public Methods
+    def __init__(self, sigName, configFile, *argv):
         self._sigName = sigName
-        self._toolname = "sig_{}_tool".format(sigName.replace('Sig', '').lower())
+        self._toolname = "sig_{}_tool".format(sigName.replace("Sig", "").lower())
         self._configFile = configFile
         # Should be dict
         self._args = {}
@@ -23,9 +24,8 @@ class SigClass:
         self._mode = None
         self._t0 = None
         self._tend = None
-        self._testSuite = '.'.join(['pestle', 'tests', 'test{}'.format(sigName)])
-        #self.parseArgs(*argv)
-
+        self._testSuite = ".".join(["pestle", "tests", "test{}".format(sigName)])
+        # self.parseArgs(*argv)
 
     def parseArgs(self, *argv):
         self._parseArgs(*argv)
@@ -34,14 +34,16 @@ class SigClass:
         try:
             self.parseArgs(*argv)
             self.runAnalysis()
-            if (self._state == 'SUCCESS') & (self.mode == 'default'):
+            if (self._state == "SUCCESS") & (self.mode == "default"):
                 self.saveResults()
             if os.path.exists(self._wkdir):
                 out_stream = os.path.join(self._wkdir, "success.txt")
-                print("# Completed in {:2.2f}".format(self._tend),
-                      file=open(out_stream, "w"))
+                print(
+                    "# Completed in {:2.2f}".format(self._tend),
+                    file=open(out_stream, "w"),
+                )
         except Exception as e:
-            self._state = 'FAILURE'
+            self._state = "FAILURE"
             if os.path.exists(self._wkdir):
                 out_stream = os.path.join(self._wkdir, "failure.txt")
                 traceback.print_exc(file=open(out_stream, "w"))
@@ -50,11 +52,10 @@ class SigClass:
     def runAnalysis(self):
         self._state = "RUNNING"
         self.tic()
-        self._classMain()       #runs analysis, demo or test
+        self._classMain()  # runs analysis, demo or test
         tend = self.toc()
-        print( "# Completed in {:2.2f}s".format(tend))
+        print("# Completed in {:2.2f}s".format(tend))
         self.state = "SUCCESS"
-
 
     def saveResults(self, *argv):
         wkdir = self.wkdir
@@ -62,8 +63,8 @@ class SigClass:
             os.mkdir(wkdir)
             print("Creating working dir: {}".format(wkdir))
         else:
-            #print("Working directory {} exists  ".format(wkdir))
-            #print config
+            # print("Working directory {} exists  ".format(wkdir))
+            # print config
             self._saveResults(out_path=wkdir)
 
     def runTests(self):
@@ -83,7 +84,6 @@ class SigClass:
             self._args[key] = value
         else:
             raise KeyError("Key: {} is not a valid argument".format(key))
-
 
     def setArgs(self, args):
         for key, val in args:
@@ -121,7 +121,7 @@ class SigClass:
     def wkdir(self, value):
         self._wkdir = value
 
-    def tic(self): #based off Matlab tic-toc functionality
+    def tic(self):  # based off Matlab tic-toc functionality
         self._t0 = time.time()
         self._tend = -1
 
@@ -132,16 +132,16 @@ class SigClass:
         else:
             return self._tend
 
-# Protected methods
+    # Protected methods
     def _classMain(self):
-        if (self.mode == "default"):
+        if self.mode == "default":
             self._res = self._runAnalysis()
-        elif (self.mode == "test"):
+        elif self.mode == "test":
             self._runTests()
-        elif (self.mode == "demo"):
+        elif self.mode == "demo":
             self._runDemo()
         else:
-            assert (False), "Unknown run mode"
+            assert False, "Unknown run mode"
 
     def _parseArgs(self, *argv):
         arg_parse = ArgParse()
@@ -151,23 +151,23 @@ class SigClass:
         if len(*argv) < 1:
             arg_parse.parser.print_help()
             sys.exit(0)
-        args = arg_parse.parser.parse_args(*argv) #parse arguments
+        args = arg_parse.parser.parse_args(*argv)  # parse arguments
 
         if args.rundemo:
-            self.mode = 'demo'
+            self.mode = "demo"
         elif args.runtests:
-            self.mode = 'test'
+            self.mode = "test"
         else:
-            self.mode = 'default'
+            self.mode = "default"
 
         self._args = args
 
-        self._checkArgs() #Validate arguments
+        self._checkArgs()  # Validate arguments
 
         if not args.out:
             args.out = os.curdir
         if args.create_subdir:
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
             wkdir = os.path.join(args.out, "{}_{}".format(self.sigName, timestamp))
         else:
             wkdir = args.out
@@ -188,15 +188,15 @@ class SigClass:
 
     def _runTests(self):
         print("Running Teests")
-        suite =  unittest.TestLoader().loadTestsFromName(self._testSuite)
+        suite = unittest.TestLoader().loadTestsFromName(self._testSuite)
         unittest.TextTestRunner(verbosity=2).run(suite)
 
-    #Protected, Abstract methods
+    # Protected, Abstract methods
     def _runAnalysis(self):
-        raise NotImplementedError('Abstract')
+        raise NotImplementedError("Abstract")
 
     def _checkArgs(self):
-        raise NotImplementedError('Abstract')
+        raise NotImplementedError("Abstract")
 
     def _saveResults(self, out_path):
-        raise NotImplementedError('Abstract')
+        raise NotImplementedError("Abstract")
