@@ -35,7 +35,8 @@ def print_tools():
 
 def toolify_help():
     print("Toolify available commands:")
-    print("new\t Make new SigTool using cookiecutter template\n")
+    print("new\t Make new SigTool using cookiecutter template")
+    print("list_files\t List relevant files for a listed SigTool. Useful for editing\n")
 
 
 def main(argv=None):
@@ -72,5 +73,7 @@ def main(argv=None):
         else:
             toolify_help()
             print("Unknown toolify command: {}")
+    elif argv[1] == "help":
+        pestle_help()
     else:
-        print("Unknown command: {}".format(argv[1]))
+        print("Unknown command: {}, try run_pestle help".format(argv[1]))

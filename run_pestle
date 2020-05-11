@@ -1,0 +1,6 @@
+#echo "Total Arguments": $#
+#echo "All Arguments Values" $@
+export PIPENV_VERBOSITY=-1
+
+pipenv run python -m pestle $@
+
